@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_main_title">60sp</dimen>
+
+    <dimen name="text_small">10sp</dimen>
+    <dimen name="text_regular">12sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+
+    <dimen name="main_logo_size">220dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+
+    <dimen name="margin_very_large">64dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_medium">24dp</dimen>
+    <dimen name="margin_regular">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_very_small">4dp</dimen>
+</resources>

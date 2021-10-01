@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TravelAndEat</string>
+    <string name="travel_and_eat">Travel &amp; Eat</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="enter">Enter</string>
 </resources>
