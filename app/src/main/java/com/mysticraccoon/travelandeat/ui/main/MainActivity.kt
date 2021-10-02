@@ -1,13 +1,7 @@
-package com.mysticraccoon.travelandeat.core.ui.main
+package com.mysticraccoon.travelandeat.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity() {

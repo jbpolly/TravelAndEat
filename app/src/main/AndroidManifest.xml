@@ -12,7 +12,7 @@
         android:theme="@style/Theme.TravelAndEat" >
 
         <activity
-            android:name=".core.ui.main.MainActivity"
+            android:name="com.mysticraccoon.travelandeat.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.mysticraccoon.travelandeat.core.ui.enterScreen
+package com.mysticraccoon.travelandeat.ui.enterScreen
 
 import androidx.lifecycle.ViewModel
 

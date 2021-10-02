@@ -9,7 +9,9 @@
     <color name="dark_yellow">#F4AB2E</color>
     <color name="light_pink">#F7B791</color>
     <color name="food_red">#AD4132</color>
+    <color name="food_red_opacity">#30AD4132</color>
     <color name="text_color">#3A3234</color>
+    <color name="list_item_bg">#f4ebce</color>
     <color name="disabled_color">#66FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

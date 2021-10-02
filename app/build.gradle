@@ -85,7 +85,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
     //Network response adapter for okHttp
-//    implementation "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
+    implementation "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

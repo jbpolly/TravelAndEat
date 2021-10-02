@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_app">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dash_your_list_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/your_saved_places"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/ScreenTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dash_saved_places_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/dash_options_group"
+            app:layout_constraintEnd_toEndOf="@id/dash_your_list_text"
+            app:layout_constraintStart_toStartOf="@id/dash_your_list_text"
+            app:layout_constraintTop_toBottomOf="@id/dash_your_list_text"
+            tools:itemCount="15"
+            tools:listitem="@layout/viewholder_place_list_item" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/dash_options_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dash_explore_option"
+                style="@style/OptionButton"
+                android:layout_width="@dimen/dashboard_option_size"
+                android:layout_height="@dimen/dashboard_option_size"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:drawableTop="@drawable/ic_food"
+                android:text="@string/explore_foods"
+                app:drawableTint="@color/food_red" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dash_add_place_option"
+                style="@style/OptionButton"
+                android:layout_width="@dimen/dashboard_option_size"
+                android:layout_height="@dimen/dashboard_option_size"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:drawableTop="@drawable/ic_place"
+                android:text="@string/add_places"
+                app:drawableTint="@color/food_red" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_empty_platter"
+            android:drawablePadding="@dimen/margin_small"
+            android:fontFamily="@font/butter_food"
+            android:text="@string/no_places_saved"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_medium"
+            app:drawableTint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="@id/dash_saved_places_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dash_saved_places_list" />
+
+        <ProgressBar
+            android:id="@+id/dash_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:indeterminateTint="@color/dark_green"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

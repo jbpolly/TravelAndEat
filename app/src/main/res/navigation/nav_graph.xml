@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/enterFragment"
-        android:name="com.mysticraccoon.travelandeat.core.ui.enterScreen.EnterFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.enterScreen.EnterFragment"
         android:label="EnterFragment" />
 </navigation>

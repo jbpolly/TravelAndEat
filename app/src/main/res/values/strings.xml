@@ -3,4 +3,8 @@
     <string name="travel_and_eat">Travel &amp; Eat</string>
     <string name="welcome_to">Welcome to</string>
     <string name="enter">Enter</string>
+    <string name="your_saved_places">Your saved places:</string>
+    <string name="explore_foods">Explore Foods</string>
+    <string name="add_places">Add Places</string>
+    <string name="no_places_saved">No places saved</string>
 </resources>

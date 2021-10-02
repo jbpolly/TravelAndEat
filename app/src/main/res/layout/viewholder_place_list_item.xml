@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@drawable/bg_list_item"
+        android:padding="@dimen/margin_small">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/visitedCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/locationTitle"
+            style="@style/ListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/dishName"
+            app:layout_constraintEnd_toStartOf="@id/dishValue"
+            app:layout_constraintStart_toEndOf="@id/visitedCheck"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Tokyo - Japão" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dishName"
+            style="@style/ListItemDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dishValue"
+            app:layout_constraintStart_toStartOf="@id/locationTitle"
+            app:layout_constraintTop_toBottomOf="@id/locationTitle"
+            tools:text="Pork Rámen" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dishValue"
+            style="@style/ValueText"
+            android:layout_width="wrap_content"
+            android:maxWidth="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$999.00" />
+
+        <View
+            android:id="@+id/visitedLine"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/line"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
