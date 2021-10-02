@@ -5,20 +5,20 @@ import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants
 import com.mysticraccoon.travelandeat.core.network.ITravelAndEatAPI
 import com.mysticraccoon.travelandeat.core.network.createRetrofitService
 import com.mysticraccoon.travelandeat.core.room.TravelAndEatDatabase
+import com.mysticraccoon.travelandeat.data.repository.FoodRepository
+import com.mysticraccoon.travelandeat.data.repository.IFoodRepository
 import com.mysticraccoon.travelandeat.data.repository.ISavedPlaceRepository
 import com.mysticraccoon.travelandeat.data.repository.SavePlaceRepository
 import org.koin.dsl.module
 
 val dataModule = module {
 
-    single {
-        createRetrofitService().create(ITravelAndEatAPI::class.java)
-    }
+    single { SavePlaceRepository(get()) }
+
+    single { FoodRepository(get(), get()) }
 
     single {
-        Room.databaseBuilder(get(), TravelAndEatDatabase::class.java, TravelAndEatConstants.databaseName)
-            .fallbackToDestructiveMigration()
-            .build()
+        createRetrofitService().create(ITravelAndEatAPI::class.java)
     }
 
     single {
@@ -29,7 +29,15 @@ val dataModule = module {
         get<TravelAndEatDatabase>().foodCategoryDao()
     }
 
-    single<ISavedPlaceRepository> { SavePlaceRepository(get()) }
+    single {
+        Room.databaseBuilder(get(), TravelAndEatDatabase::class.java, TravelAndEatConstants.databaseName)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+
+
+
 
 
 

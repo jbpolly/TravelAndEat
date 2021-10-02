@@ -27,5 +27,18 @@
         android:id="@+id/exploreFragment"
         android:name="com.mysticraccoon.travelandeat.ui.explore.ExploreFragment"
         android:label="ExploreFragment"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_foodFromCategoryFragment"
+            app:destination="@id/foodFromCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodFromCategoryFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.foodFromCategory.FoodFromCategoryFragment"
+        android:label="FoodFromCategoryFragment"
+        tools:layout="@layout/fragment_meal_from_category">
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>

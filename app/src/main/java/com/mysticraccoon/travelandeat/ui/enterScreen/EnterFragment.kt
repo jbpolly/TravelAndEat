@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.mysticraccoon.travelandeat.databinding.FragmentEnterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
+import com.mysticraccoon.travelandeat.core.utils.safeNavigate
 
 
 class EnterFragment: Fragment() {
@@ -27,7 +29,9 @@ class EnterFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.enterButton.setOnClickListener {
+            findNavController().safeNavigate(EnterFragmentDirections.actionEnterFragmentToDashboardFragment())
+        }
 
 
     }

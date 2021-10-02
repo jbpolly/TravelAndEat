@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.mysticraccoon.travelandeat.BR
 import com.mysticraccoon.travelandeat.databinding.FragmentDashboardBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,7 +38,7 @@ class DashboardFragment: Fragment() {
     private fun setListeners() {
 
         binding.dashExploreOption.setOnClickListener {
-
+            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToExploreFragment())
 
         }
 

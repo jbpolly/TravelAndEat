@@ -4,6 +4,7 @@ plugins {
 
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 //    id 'com.google.gms.google-services'
 }
 
@@ -66,9 +67,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
     //Navigation
-    implementation "androidx.navigation:navigation-runtime-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-runtime-ktx:2.4.0-alpha09"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha09"
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.0-alpha09"
 
     //support for multidex when there are too many dependencies
     implementation 'com.android.support:multidex:1.0.3'
@@ -96,6 +97,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.3.0"
     implementation "androidx.room:room-ktx:2.3.0"
 
+    implementation 'androidx.work:work-runtime-ktx:2.7.0-rc01'
+
     //Maps & Geofencing
 //    implementation "com.google.android.gms:play-services-location:18.0.0"
 //    implementation "com.google.android.gms:play-services-maps:17.0.1"
@@ -104,10 +107,6 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
     // Koin Java Compatibility
     implementation "io.insert-koin:koin-android-compat:3.1.2"
-    // Koin for Jetpack WorkManager
-    implementation "io.insert-koin:koin-androidx-workmanager:3.1.2"
-    // Koin for Jetpack Compose
-    implementation "io.insert-koin:koin-androidx-compose:3.1.2"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

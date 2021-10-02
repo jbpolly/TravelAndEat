@@ -1,56 +1,50 @@
-package com.mysticraccoon.travelandeat.ui.explore
+package com.mysticraccoon.travelandeat.ui.foodFromCategory
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.mysticraccoon.travelandeat.BR
-import com.mysticraccoon.travelandeat.core.utils.safeNavigate
-import com.mysticraccoon.travelandeat.databinding.FragmentExploreBinding
+import com.mysticraccoon.travelandeat.databinding.FragmentMealFromCategoryBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ExploreFragment: Fragment() {
+class FoodFromCategoryFragment: Fragment() {
 
-    private lateinit var binding: FragmentExploreBinding
-    private val viewModel: ExploreViewModel by viewModel()
+    private lateinit var binding: FragmentMealFromCategoryBinding
+    private val viewModel: FoodFromCategoryViewModel by viewModel()
+    private val foodFromCategoryArgs by navArgs<FoodFromCategoryFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        binding = FragmentExploreBinding.inflate(inflater, container, false)
+        binding = FragmentMealFromCategoryBinding.inflate(inflater, container, false)
         binding.setVariable(BR.viewModel, viewModel)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        val manager = GridLayoutManager(requireActivity(), 2)
-        binding.exploreFoodCategoriesList.layoutManager = manager
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupAdapter()
         setupListeners()
+        viewModel.setCategory(foodFromCategoryArgs.category)
 
     }
 
     private fun setupAdapter() {
 
-        val adapter = ExploreCategoriesAdapter(FoodCategoryClicked {
-           findNavController().safeNavigate(ExploreFragmentDirections.actionExploreFragmentToFoodFromCategoryFragment(it.title))
+        val adapter = FoodItemFromCategoryAdapter(FoodItemClicked {
+            //todo item selected?
         })
 
-        binding.exploreFoodCategoriesList.adapter = adapter
+        binding.categoryFoodList.adapter = adapter
 
-        viewModel.foodCategories.observe(viewLifecycleOwner){ list ->
+        viewModel.foodList.observe(viewLifecycleOwner){ list->
             list?.let {
                 adapter.submitList(it)
             }
@@ -65,7 +59,5 @@ class ExploreFragment: Fragment() {
         }
 
     }
-
-
 
 }

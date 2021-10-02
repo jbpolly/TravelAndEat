@@ -14,6 +14,7 @@ interface ITravelAndEatAPI {
     @GET("search.php")
     suspend fun searchFoods(@Query("s")text: String): NetworkResponse<FoodItemListResponse, String>
 
-
+    @GET("filter.php")
+    suspend fun getFoodByCategory(@Query("c")category: String): NetworkResponse<FoodItemListResponse, String>
 
 }

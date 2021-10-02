@@ -6,7 +6,9 @@ import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.data.ErrorType
 import com.mysticraccoon.travelandeat.data.repository.FoodRepository
 import com.mysticraccoon.travelandeat.ui.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ExploreViewModel(private val app: Application, private val foodRepository: FoodRepository): BaseViewModel(app) {
 
