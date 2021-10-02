@@ -7,4 +7,12 @@
     <string name="explore_foods">Explore Foods</string>
     <string name="add_places">Add Places</string>
     <string name="no_places_saved">No places saved</string>
+
+
+
+    <string name="error_network">No Network</string>
+    <string name="error_service">Error retrieving data</string>
+    <string name="error_unknown">Error unknown</string>
+    <string name="food_categories">Food Categories</string>
+
 </resources>

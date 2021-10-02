@@ -1,4 +1,4 @@
-package com.mysticraccoon.travelandeat.core
+package com.mysticraccoon.travelandeat.core.utils
 
 object TravelAndEatConstants {
 
@@ -6,5 +6,6 @@ object TravelAndEatConstants {
     const val savedPlacesTableName = "saved_places"
     const val savedPlacesIdColumnName = "entry_id"
     const val base_api_url = "www.themealdb.com/api/json/v1/1/"
+    const val foodCategoryTableName = "food_category"
 
 }

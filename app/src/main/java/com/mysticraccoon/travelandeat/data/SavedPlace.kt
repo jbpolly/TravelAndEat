@@ -3,8 +3,8 @@ package com.mysticraccoon.travelandeat.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.mysticraccoon.travelandeat.core.TravelAndEatConstants.savedPlacesIdColumnName
-import com.mysticraccoon.travelandeat.core.TravelAndEatConstants.savedPlacesTableName
+import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants.savedPlacesIdColumnName
+import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants.savedPlacesTableName
 
 @Entity(tableName = savedPlacesTableName)
 data class SavedPlace(

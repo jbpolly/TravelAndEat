@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="thumbUrl"
+            type="String" />
+
+<!--        <variable-->
+<!--            name="clickListener"-->
+<!--            type="com.example.android.trackmysleepquality.sleeptracker.SleepNightListener" />-->
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/food_category_size"
+        android:layout_height="@dimen/food_category_size"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/bg_list_item">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_thumb"
+            imageUrl="@{thumbUrl}"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/food_category_thumb"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:layout_constraintBottom_toTopOf="@id/item_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Steak"
+            style="@style/ListItemTitle"
+            android:textAlignment="center"
+            android:layout_margin="@dimen/margin_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_thumb"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

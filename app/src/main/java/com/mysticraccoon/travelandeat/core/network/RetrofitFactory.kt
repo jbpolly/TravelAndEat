@@ -1,6 +1,6 @@
 package com.mysticraccoon.travelandeat.core.network
 
-import com.mysticraccoon.travelandeat.core.TravelAndEatConstants
+import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient

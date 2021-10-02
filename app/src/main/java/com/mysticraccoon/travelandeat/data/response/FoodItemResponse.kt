@@ -3,6 +3,11 @@ package com.mysticraccoon.travelandeat.data.response
 import com.mysticraccoon.travelandeat.data.FoodItem
 import com.squareup.moshi.Json
 
+data class FoodItemListResponse(
+    @Json(name = "meals")
+    val list: List<FoodItemResponse>
+)
+
 data class FoodItemResponse(
     @Json(name = "idMeal")
     val id: String,

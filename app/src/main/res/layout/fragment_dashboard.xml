@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.mysticraccoon.travelandeat.ui.dashboard.DashboardViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
