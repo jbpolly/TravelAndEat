@@ -129,7 +129,7 @@ Then, a dialog appears to let they confirm the location is correct. On confirmat
 In this screen the user will be able to see information about their saved meal. This is screen is accessed by cliking on the notification that the user receives when entering a geofence or clicking on a saved item from the dashboard.
 If the user arrived in this screen from a saved item on the dashboard then the user can see a button to edit the meal info. If the user arrives from the notification this button is hidden.
 
-![app_notification](https://user-images.githubusercontent.com/7203221/135767325-545c9405-9f66-452d-be52-66aa444fb214.png)
+![app_notification_resize](https://user-images.githubusercontent.com/7203221/135767527-462695bb-4961-4d75-9df1-0899bac6f7ee.png)
 ![app_meal_details_resize](https://user-images.githubusercontent.com/7203221/135767309-b718ab02-4ab6-4f9a-8a0c-5e838e56ce6c.png)
 ![app_meal_details_editable_resize](https://user-images.githubusercontent.com/7203221/135767311-652c2a9c-e911-4db8-a818-f9fa8683700c.png)
 
