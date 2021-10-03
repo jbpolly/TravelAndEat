@@ -6,7 +6,11 @@ import android.util.Log
 import androidx.core.app.JobIntentService
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
+import com.mysticraccoon.travelandeat.core.utils.triggerNotification
+import com.mysticraccoon.travelandeat.data.repository.SavePlaceRepository
+import com.mysticraccoon.travelandeat.ui.addEditMeal.AddEditMealFragment.Companion.ACTION_GEOFENCE_EVENT
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
 class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
@@ -15,6 +19,7 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
 
+    private val savedPlaceRepository: SavePlaceRepository by inject()
     companion object {
         private const val JOB_ID = 573
 
@@ -28,34 +33,32 @@ class GeofenceTransitionsJobIntentService : JobIntentService(), CoroutineScope {
     }
 
     override fun onHandleWork(intent: Intent) {
-//        if (intent.action == SaveReminderFragment.ACTION_GEOFENCE_EVENT) {
-//            val geofencingEvent = GeofencingEvent.fromIntent(intent)
-//            if (geofencingEvent.hasError()) {
-//                return
-//            }
-//            if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-//                Log.v(GEOFENCE_TAG, "Entered geofence")
-//                sendNotification(geofencingEvent.triggeringGeofences)
-//            }
-//        }
+        if (intent.action == ACTION_GEOFENCE_EVENT) {
+            val geofencingEvent = GeofencingEvent.fromIntent(intent)
+            if (geofencingEvent.hasError()) {
+                return
+            }
+            if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+                Log.v(GEOFENCE_TAG, "Entered geofence")
+                sendNotification(geofencingEvent.triggeringGeofences)
+            }
+        }
     }
 
     private fun sendNotification(triggeringGeofences: List<Geofence>) {
-//        val remindersDao = LocalDB.createRemindersDao(this)
-//        if(triggeringGeofences.isEmpty()){
-//            Log.e(GEOFENCE_TAG, "No Geofence Trigger Found! Abort mission!")
-//            return
-//        }else{
-//            for(trigger in triggeringGeofences){
-//                val requestId = trigger.requestId
-//                CoroutineScope(coroutineContext).launch(SupervisorJob()) {
-//                    val result = remindersDao.getReminderById(requestId)
-//                    result?.let { item->
-//                        sendNotification(this@GeofenceTransitionsJobIntentService, item.toReminderDataItem())
-//                    }
-//                }
-//            }
-//        }
+        if(triggeringGeofences.isEmpty()){
+            Log.e(GEOFENCE_TAG, "No Geofence Trigger Found! Abort mission!")
+            return
+        }else{
+            for(trigger in triggeringGeofences){
+                val requestId = trigger.requestId
+                CoroutineScope(coroutineContext).launch(SupervisorJob()) {
+                    val result = savedPlaceRepository.getSavedPlaceById(requestId)
+                    result?.let { item->
+                        triggerNotification(this@GeofenceTransitionsJobIntentService, item)
+                    }
+                }
+            }
+        }
     }
-
 }

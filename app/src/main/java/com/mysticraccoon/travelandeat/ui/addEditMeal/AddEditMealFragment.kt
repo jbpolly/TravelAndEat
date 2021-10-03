@@ -32,12 +32,12 @@ import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.core.utils.safeNavigate
 import com.mysticraccoon.travelandeat.databinding.FragmentAddEditMealBinding
 import com.mysticraccoon.travelandeat.ui.components.EditTextDecimalTextWatcher
-import com.udacity.project4.core.geofence.GEOFENCE_TAG
-import com.udacity.project4.core.geofence.GeofenceBroadcastReceiver
+import com.mysticraccoon.travelandeat.core.geofence.GEOFENCE_TAG
+import com.mysticraccoon.travelandeat.core.geofence.GeofenceBroadcastReceiver
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class AddEditMealFragment: Fragment() {
+class AddEditMealFragment : Fragment() {
 
     private lateinit var binding: FragmentAddEditMealBinding
     private val viewModel: AddEditMealViewModel by sharedViewModel()
@@ -45,14 +45,25 @@ class AddEditMealFragment: Fragment() {
     private val args: AddEditMealFragmentArgs by navArgs()
 
     private var mealPriceTextWatcher: TextWatcher? = null
+
     // A PendingIntent for the Broadcast Receiver that handles geofence transitions.
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(requireContext(), GeofenceBroadcastReceiver::class.java)
         intent.action = ACTION_GEOFENCE_EVENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+            PendingIntent.getBroadcast(
+                requireContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            )
         } else {
-            PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getBroadcast(
+                requireContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
         }
     }
 
@@ -82,11 +93,12 @@ class AddEditMealFragment: Fragment() {
 
     private fun setupScreen(isEdit: Boolean) {
         //todo setup screen to edit
-        if(isEdit){
+        if (isEdit) {
             binding.deleteButton.visibility = View.VISIBLE
             viewModel.loadSavedPlace(args.savedPlace)
-        }else{
+        } else {
             binding.deleteButton.visibility = View.GONE
+            viewModel.createSavedPlace()
         }
 
     }
@@ -98,42 +110,46 @@ class AddEditMealFragment: Fragment() {
 
     private fun setupListeners() {
 
-            binding.mealNameField.setOnClickListener {
-                findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToSelectMealFragment())
-            }
+        binding.mealNameField.setOnClickListener {
+            findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToSelectMealFragment())
+        }
 
-            binding.mealLocationField.setOnClickListener {
-                findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToSelectLocationFragment())
+        binding.mealLocationField.setOnClickListener {
+            findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToSelectLocationFragment())
+        }
+
+        viewModel.showSnackBar.observe(viewLifecycleOwner) { text ->
+            Snackbar.make(this.requireView(), text, Snackbar.LENGTH_SHORT).show()
+        }
+
+        binding.deleteButton.setOnClickListener {
+            viewModel.deleteSavedPlace()
+        }
+
+        viewModel.deletedComplete.observe(viewLifecycleOwner){ isComplete ->
+            if(isComplete){
+                findNavController().popBackStack()
             }
+        }
+
+        binding.saveButton.setOnClickListener {
+            saveMealPlace()
+        }
 
     }
 
-
-
-
-
-//    private fun saveReminder() {
-//        val title = _viewModel.reminderTitle.value
-//        val description = _viewModel.reminderDescription.value
-//        val location = _viewModel.reminderSelectedLocationStr.value
-//        val latitude = _viewModel.latitude.value
-//        val longitude = _viewModel.longitude.value
-//
-//        val reminder = ReminderDataItem(title, description, location, latitude, longitude)
-//        if (reminder.latitude != null && reminder.longitude != null) {
-//            checkDeviceLocationSettings(reminder)
-//
-//        } else {
-//            addReminderToDb(reminder)
-//        }
-//    }
-
-    private val locationSettingsResult = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){result->
-        Toast.makeText(requireContext(), "Resolved location settings", Toast.LENGTH_SHORT).show()
-
-        //todo save place
-        //saveReminder()
+    private fun saveMealPlace() {
+        if (viewModel.validateEnteredData()) {
+            checkDeviceLocationSettings()
+        }
     }
+
+    private val locationSettingsResult =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            Toast.makeText(requireContext(), "Resolved location settings", Toast.LENGTH_SHORT)
+                .show()
+            saveMealPlace()
+        }
 
 
     private fun checkDeviceLocationSettings(resolve: Boolean = true) {
@@ -147,12 +163,14 @@ class AddEditMealFragment: Fragment() {
         locationSettingsResponseTask.addOnFailureListener { exception ->
             if (exception is ResolvableApiException && resolve) {
                 try {
-                    val intentSenderRequest = IntentSenderRequest.Builder(exception.resolution).build()
+                    val intentSenderRequest =
+                        IntentSenderRequest.Builder(exception.resolution).build()
                     locationSettingsResult.launch(intentSenderRequest)
 
                 } catch (sendEx: IntentSender.SendIntentException) {
                     Log.d(
-                        GEOFENCE_TAG, "Error getting location settings resolution: " + sendEx.message
+                        GEOFENCE_TAG,
+                        "Error getting location settings resolution: " + sendEx.message
                     )
                 }
             } else {
@@ -173,42 +191,6 @@ class AddEditMealFragment: Fragment() {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun addGeofenceForReminder() {
-
-        //Build the geofence using the geofence builder
-//        val geofence = Geofence.Builder()
-//            .setRequestId(reminderDataItem.id)
-//            .setCircularRegion(reminderDataItem.latitude ?: 0.0, reminderDataItem.longitude ?: 0.0, GEOFENCE_RADIUS_IN_METERS)
-//            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-//            .setExpirationDuration(Geofence.NEVER_EXPIRE)
-//            .build()
-//
-//        //Build the geofence request.
-//        val geofencingRequest = GeofencingRequest.Builder()
-//            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-//            .addGeofence(geofence)
-//            .build()
-//
-//        geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
-//            addOnSuccessListener {
-//                Toast.makeText(requireContext(), com.google.android.gms.location.R.string.geofences_added, Toast.LENGTH_SHORT)
-//                    .show()
-//                Log.e(GEOFENCE_TAG, geofence.requestId)
-//                addReminderToDb(reminderDataItem)
-//            }
-//            addOnFailureListener {
-//                // Failed to add geofences.
-//                Toast.makeText(requireContext(), com.google.android.gms.location.R.string.geofences_not_added, Toast.LENGTH_SHORT).show()
-//                if ((it.message != null)) {
-//                    Log.w(GEOFENCE_TAG, it.message ?: "")
-//                }
-//                addReminderToDb(reminderDataItem)
-//            }
-//        }
-
-    }
-
     private fun checkGeoFencePermissions() {
         val backgroundLocation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ContextCompat.checkSelfPermission(
@@ -223,7 +205,7 @@ class AddEditMealFragment: Fragment() {
             ) == PackageManager.PERMISSION_GRANTED && backgroundLocation
         ) {
             // Have all the necessary permission
-          //  addGeofenceForReminder(reminderDataItem)
+            addGeofenceForReminder()
         } else {
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
@@ -248,17 +230,58 @@ class AddEditMealFragment: Fragment() {
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private fun addGeofenceForReminder() {
+        viewModel.savedPlace?.let { savedPlace ->
+            // Build the geofence using the geofence builder
+            val geofence = Geofence.Builder()
+                .setRequestId(savedPlace.id)
+                .setCircularRegion(savedPlace.latitude ?: 0.0, savedPlace.longitude ?: 0.0, GEOFENCE_RADIUS_IN_METERS)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .build()
+
+            //Build the geofence request.
+            val geofencingRequest = GeofencingRequest.Builder()
+                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+                .addGeofence(geofence)
+                .build()
+
+            geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
+                addOnSuccessListener {
+                    Toast.makeText(requireContext(), R.string.geofences_added, Toast.LENGTH_SHORT)
+                        .show()
+                    Log.e(GEOFENCE_TAG, geofence.requestId)
+                    viewModel.saveSavedPlace()
+                }
+                addOnFailureListener {
+                    // Failed to add geofences.
+                    Toast.makeText(requireContext(), R.string.geofences_not_added, Toast.LENGTH_SHORT).show()
+                    if ((it.message != null)) {
+                        Log.w(GEOFENCE_TAG, it.message ?: "")
+                    }
+                    viewModel.saveSavedPlace()
+                }
+            }
+
+        } ?: run {
+            Toast.makeText(requireContext(), getString(R.string.error_null_data), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
     private val requestFineLocationPermissionLaunch =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-               // saveReminder()
+                saveMealPlace()
             }
         }
 
     private val requestBackgroundLocationPermissionLaunch =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-              //  saveReminder()
+                saveMealPlace()
             }
         }
 
@@ -284,7 +307,7 @@ class AddEditMealFragment: Fragment() {
             .setPositiveButton(getString(R.string.text_continue)) { _, _ ->
                 requestBackgroundLocationPermissionLaunch.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
             }
-            .setNegativeButton(android.R.string.cancel) {dialog, _ ->
+            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

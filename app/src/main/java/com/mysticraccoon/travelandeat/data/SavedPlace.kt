@@ -7,13 +7,14 @@ import androidx.room.PrimaryKey
 import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants.savedPlacesIdColumnName
 import com.mysticraccoon.travelandeat.core.utils.TravelAndEatConstants.savedPlacesTableName
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 @Entity(tableName = savedPlacesTableName)
 @Parcelize
 data class SavedPlace(
-    @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = savedPlacesIdColumnName)
-    var id: Int = 0,
+    val id: String = UUID.randomUUID().toString(),
     var title: String = "",
     var dishName: String = "",
     var latitude: Double? = null,
@@ -48,7 +49,7 @@ data class SavedPlace(
     }
 
     override fun hashCode(): Int {
-        var result = id
+        var result = id.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + dishName.hashCode()
         result = 31 * result + (latitude?.hashCode() ?: 0)

@@ -1,10 +1,9 @@
-package com.udacity.project4.core.geofence
+package com.mysticraccoon.travelandeat.core.geofence
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.mysticraccoon.travelandeat.core.geofence.GeofenceTransitionsJobIntentService
 
 /**
  * Triggered by the Geofence.  Since we can have many Geofences at once, we pull the request

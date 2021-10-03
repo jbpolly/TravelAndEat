@@ -3,6 +3,7 @@ package com.mysticraccoon.travelandeat.ui.addEditMeal
 import android.app.Application
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.lifecycleScope
@@ -15,24 +16,29 @@ import com.mysticraccoon.travelandeat.core.utils.toDoubleOrNullFromUS
 import com.mysticraccoon.travelandeat.data.FoodItem
 import com.mysticraccoon.travelandeat.data.SavedPlace
 import com.mysticraccoon.travelandeat.data.repository.FoodRepository
+import com.mysticraccoon.travelandeat.data.repository.SavePlaceRepository
 import com.mysticraccoon.travelandeat.ui.base.BaseViewModel
 import com.mysticraccoon.travelandeat.ui.base.SingleLiveEvent
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class AddEditMealViewModel(private val app: Application, private val foodRepository: FoodRepository): BaseViewModel(app) {
+class AddEditMealViewModel(
+    private val app: Application,
+    private val foodRepository: FoodRepository,
+    private val savedPlacesRepository: SavePlaceRepository
+) : BaseViewModel(app) {
 
     val mealName = MutableLiveData<String>()
     val mealPriceText = MutableLiveData<String>()
-//    val mealPriceDouble = Transformations.map(mealPriceText){ text ->
+
+    //    val mealPriceDouble = Transformations.map(mealPriceText){ text ->
 //        text.toDoubleOrNullFromUS()
 //    }
     val mealLocation = MutableLiveData<String>()
     val searchFoodList = MutableLiveData<List<FoodItem>>()
     val cleanSearch = SingleLiveEvent<Boolean>()
+    val deletedComplete = SingleLiveEvent<Boolean>()
 
-    var savedPlace: SavedPlace = SavedPlace()
+    var savedPlace: SavedPlace? = null
 
     val searchDebounceWatcher = object : TextWatcher {
         private var searchFor = ""
@@ -57,7 +63,6 @@ class AddEditMealViewModel(private val app: Application, private val foodReposit
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
     }
 
-
     fun loadSavedPlace(place: SavedPlace?) {
         place?.let {
             savedPlace = it
@@ -67,34 +72,27 @@ class AddEditMealViewModel(private val app: Application, private val foodReposit
         }
     }
 
+    fun createSavedPlace() {
+        savedPlace = SavedPlace()
+    }
 
 
-//    private var searchJob: Job? = null
-//
-//    fun searchDebounced(searchText: String) {
-//        searchJob?.cancel()
-//        searchJob = viewModelScope.launch {
-//            delay(500)
-//            searchMeals(searchText)
-//        }
-//    }
-
-     suspend fun searchMeals(text: String){
-         when(val result = foodRepository.searchFoodFromText(text)){
-             is NetworkResponse.Success -> {
-                 searchFoodList.value = result.body.list.map { it.toFoodItem() }
-             }
-             is NetworkResponse.ServerError -> {
-                 showSnackBar.value = app.getString(R.string.error_service)
-             }
-             is NetworkResponse.NetworkError -> {
-                 showSnackBar.value = app.getString(R.string.error_network)
-             }
-             else -> {
-                 showSnackBar.value = app.getString(R.string.error_unknown)
-             }
-         }
-     }
+    suspend fun searchMeals(text: String) {
+        when (val result = foodRepository.searchFoodFromText(text)) {
+            is NetworkResponse.Success -> {
+                searchFoodList.value = result.body.list.map { it.toFoodItem() }
+            }
+            is NetworkResponse.ServerError -> {
+                showSnackBar.value = app.getString(R.string.error_service)
+            }
+            is NetworkResponse.NetworkError -> {
+                showSnackBar.value = app.getString(R.string.error_network)
+            }
+            else -> {
+                showSnackBar.value = app.getString(R.string.error_unknown)
+            }
+        }
+    }
 
 //
 //    fun onClear() {
@@ -107,60 +105,75 @@ class AddEditMealViewModel(private val app: Application, private val foodReposit
 //    }
 
 
-//    fun validateAndSaveReminder(savedPlace: SavedPlace) {
-//        if (validateEnteredData(reminderData)) {
-//            saveSavedPlace(reminderData)
-//        }
-//    }
+    fun saveSavedPlace() {
+        savedPlace?.let { place ->
+            place.dishValue = mealPriceText.value ?: "0.0"
+            viewModelScope.launch {
+                showLoading.value = true
+                withContext(Dispatchers.IO) {
+                    savedPlacesRepository.savePlace(place)
+                }
+                showLoading.value = false
+            }
+        }
 
-    fun saveSavedPlace(savedPlace: SavedPlace) {
-        showLoading.value = true
-        viewModelScope.launch {
-//            dataSource.saveReminder(
-//                ReminderDTO(
-//                    reminderData.title,
-//                    reminderData.description,
-//                    reminderData.location,
-//                    reminderData.latitude,
-//                    reminderData.longitude,
-//                    reminderData.id
-//                )
-//            )
-            showLoading.value = false
+    }
+
+    fun validateEnteredData(): Boolean {
+
+        savedPlace?.let { place ->
+            if (place.dishName.isEmpty()) {
+                showSnackBar.value = app.getString(R.string.err_enter_name)
+                return false
+            }
+
+            if (place.location.isEmpty()) {
+                showSnackBar.value = app.getString(R.string.err_select_location)
+                return false
+            }
+            return true
+        } ?: run {
+            showSnackBar.value = app.getString(R.string.error_null_data)
+            return false
+        }
+
+
+    }
+
+    fun setMealLocation(latLong: LatLng, title: String) {
+        savedPlace?.let { savedPlace ->
+            mealLocation.value = title
+            savedPlace.longitude = latLong.longitude
+            savedPlace.latitude = latLong.latitude
+            savedPlace.location = title
         }
     }
 
-    /**
-     * Validate the entered data and show error to the user if there's any invalid data
-     */
-//    fun validateEnteredData(savedPlace: SavedPlace): Boolean {
-//
-//        if (savedPlace.dishName.isEmpty()) {
-//            showSnackBar.value = app.getString(R.string.err_enter_name)
-//            return false
-//        }
-//
-//        if (savedPlace.location.isNullOrEmpty()) {
-//            showSnackBar.value = app.getString(R.string.err_select_location)
-//            return false
-//        }
-//        return true
-//    }
-
-    fun setMealLocation(latLong: LatLng, title: String) {
-        mealLocation.value = title
-        savedPlace.longitude = latLong.longitude
-        savedPlace.latitude = latLong.latitude
-        savedPlace.location = title
-    }
-
     fun setMeal(foodItem: FoodItem) {
-        mealName.value = foodItem.name
-        savedPlace.dishName = foodItem.name
-        savedPlace.dishCategory = foodItem.category
-        savedPlace.dishId = foodItem.id
-        savedPlace.dishThumb = foodItem.url
+        savedPlace?.let { place ->
+            mealName.value = foodItem.name
+            place.dishName = foodItem.name
+            place.dishCategory = foodItem.category
+            place.dishId = foodItem.id
+            place.dishThumb = foodItem.url
+        }
     }
+
+    fun deleteSavedPlace() {
+        savedPlace?.let { place ->
+            viewModelScope.launch {
+                showLoading.value = true
+                withContext(Dispatchers.IO) {
+                    savedPlacesRepository.deleteSavedPlaceById(place.id)
+                }
+                showLoading.value = false
+            }
+        } ?: run {
+            showSnackBar.value = app.getString(R.string.error_null_data)
+        }
+
+    }
+
 
 
 }

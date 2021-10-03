@@ -10,8 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.mysticraccoon.travelandeat.BR
 import com.mysticraccoon.travelandeat.core.utils.safeNavigate
 import com.mysticraccoon.travelandeat.databinding.FragmentDashboardBinding
-import com.mysticraccoon.travelandeat.ui.foodFromCategory.FoodItemClicked
-import com.mysticraccoon.travelandeat.ui.foodFromCategory.FoodItemFromCategoryAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardFragment: Fragment() {
@@ -39,7 +37,7 @@ class DashboardFragment: Fragment() {
     private fun setupAdapter() {
 
         val adapter = SavedPlaceAdapter(SavedPlaceClicked { savedPlace ->
-            //todo item selected?
+            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToAddEditMealFragment(isEdit = true, savedPlace = savedPlace))
 
         }, SavedPlaceCheckChanged { _, savedPlace ->
             viewModel.updateSavedPlace(savedPlace)
@@ -47,11 +45,11 @@ class DashboardFragment: Fragment() {
 
         binding.dashSavedPlacesList.adapter = adapter
 
-//        viewModel..observe(viewLifecycleOwner){ list->
-//            list?.let {
-//                adapter.submitList(it)
-//            }
-//        }
+        viewModel.savedPlacesList.observe(viewLifecycleOwner){ list->
+            list?.let {
+                adapter.submitList(it)
+            }
+        }
 
     }
 

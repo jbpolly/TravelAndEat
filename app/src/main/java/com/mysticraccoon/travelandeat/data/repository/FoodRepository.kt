@@ -40,15 +40,12 @@ class FoodRepository(
         }
     }
 
-    suspend fun getFoodsFromCategory(category: String): NetworkResponse<FoodItemListResponse, String>{
+    override suspend fun getFoodsFromCategory(category: String): NetworkResponse<FoodItemListResponse, String>{
         return api.getFoodByCategory(category)
     }
 
-    suspend fun searchFoodFromText(text: String): NetworkResponse<FoodItemListResponse, String>{
+    override suspend fun searchFoodFromText(text: String): NetworkResponse<FoodItemListResponse, String>{
         return api.searchFoods(text)
     }
-
-
-
 
 }

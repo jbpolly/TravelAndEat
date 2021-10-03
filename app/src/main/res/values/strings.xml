@@ -38,4 +38,10 @@
     <string name="delete">Delete</string>
     <string name="meal_search_hint">Type the meal name to search</string>
 
+    <string name="geofence_notification_title">You\'ve arrived at %s!</string>
+    <string name="geofence_description">Enjoy you %s.</string>
+    <string name="geofences_added">Geofence added.</string>
+    <string name="geofences_not_added">Problem in adding geofences.</string>
+    <string name="error_null_data">Null data.</string>
+
 </resources>
