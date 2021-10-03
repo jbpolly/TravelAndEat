@@ -111,6 +111,22 @@ When the user cliks on save, the information inserted is validated. If the info 
 ![app_add_edit_empty_resize](https://user-images.githubusercontent.com/7203221/135766490-f808771d-5dc9-4b29-b396-73d372106058.png)
 ![app_edit_resize](https://user-images.githubusercontent.com/7203221/135766505-35345ffd-5e78-4fc4-96c8-5c4a42c59b25.png)
 
+### Select meal screen
+In this screen the user will be able to search for a meal by name. There is a debounce on the search text input field to avoid too many calls to the API.
+When the user clicks on one item from the list then the meal is selected and the user is redirected back to the "Add/Edit" screen with the information updated according to the meal selected. If no items can retrieved or the list is empty then the user is notified accordingly.
+
+![app_search_meal_resize](https://user-images.githubusercontent.com/7203221/135766643-f85c254f-cb47-40df-8601-607ab63b5e5b.png)
+
+### Select location screen
+In this screen the user will be able to search for a location. A location on the map is selected when the user clicks on a POI in the map or long click in any place of the map.
+Then, a dialog appears to let they confirm the location is correct. On confirmation, the user is redirected back to the "Add/Edit" screen with the information updated according to the location selected.
+
+![app_select_location_resize](https://user-images.githubusercontent.com/7203221/135766661-1236a3e5-ce8e-452e-8211-e4f3a1296caf.png)
+![app_select_loc_confirm_resize](https://user-images.githubusercontent.com/7203221/135766703-035a17ea-3795-4b26-89c6-2b7b70b684cc.png)
+
+
+### Meal details screen
+In this screen the user will be able to see information about their saved meal. This is screen is accessed by cliking on the notification that the user receives when entering a geofence.
 
 
 
