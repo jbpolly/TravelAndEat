@@ -10,5 +10,6 @@ interface ISavedPlaceRepository {
     suspend fun deleteSavedPlaceById(id: String)
     suspend fun savePlace(place: SavedPlace)
     suspend fun updatePlace(place: SavedPlace)
+    suspend fun deleteAllSavedPlaces()
 
 }

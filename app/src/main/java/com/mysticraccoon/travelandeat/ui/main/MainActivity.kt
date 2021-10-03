@@ -9,11 +9,14 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.databinding.ActivityMainBinding
+import com.mysticraccoon.travelandeat.ui.addEditMeal.AddEditMealViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val addEditViewModel: AddEditMealViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

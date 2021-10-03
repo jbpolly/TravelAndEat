@@ -40,7 +40,7 @@ fun triggerNotification(context: Context, savedPlace: SavedPlace) {
 
 //    build the notification object with the data to be shown
     val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-        .setSmallIcon(R.mipmap.ic_launcher)
+        .setSmallIcon(R.drawable.ic_icon_food_eat_larger)
         .setContentTitle(context.getString(R.string.geofence_notification_title, savedPlace.location))
         .setContentText(context.getString(R.string.geofence_description, savedPlace.dishName))
         .setContentIntent(intent)

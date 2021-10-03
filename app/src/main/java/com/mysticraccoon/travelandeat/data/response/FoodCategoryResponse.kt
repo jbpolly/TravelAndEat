@@ -6,7 +6,7 @@ import com.squareup.moshi.Json
 
 data class FoodCategoryListResponse(
     @Json(name = "categories")
-    val list: List<FoodCategoryResponse>
+    val list: List<FoodCategoryResponse>?
 )
 
 data class FoodCategoryResponse(

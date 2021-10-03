@@ -6,7 +6,7 @@ import com.mysticraccoon.travelandeat.data.FoodCategory
 import com.mysticraccoon.travelandeat.data.SavedPlace
 
 
-@Database(entities = [SavedPlace::class, FoodCategory::class], version = 2, exportSchema = false)
+@Database(entities = [SavedPlace::class, FoodCategory::class], version = 3, exportSchema = false)
 abstract class TravelAndEatDatabase: RoomDatabase() {
 
     abstract fun savedPlacesDao(): SavedPlacesDao

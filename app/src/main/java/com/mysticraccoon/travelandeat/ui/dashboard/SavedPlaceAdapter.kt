@@ -1,6 +1,7 @@
 package com.mysticraccoon.travelandeat.ui.dashboard
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,9 +32,12 @@ class SavedPlaceAdapter(private val onItemClicked: SavedPlaceClicked, private va
             foodCategoryItemBinding.locationTitle.text = item.location
             val valueText = "$${item.dishValue}"
             foodCategoryItemBinding.dishValue.text = valueText
+            foodCategoryItemBinding.visitedCheck.isChecked = item.checked
+            foodCategoryItemBinding.visitedLine.visibility = if(item.checked) View.VISIBLE else View.GONE
 
             foodCategoryItemBinding.visitedCheck.setOnCheckedChangeListener { _, checked ->
                 item.checked = checked
+                foodCategoryItemBinding.visitedLine.visibility = if(checked) View.VISIBLE else View.GONE
                 checkChanged.onClick(checked, item)
             }
 

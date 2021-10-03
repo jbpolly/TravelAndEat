@@ -1,6 +1,7 @@
 package com.mysticraccoon.travelandeat.ui.explore
 
 import android.app.Application
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.data.ErrorType
@@ -13,6 +14,12 @@ import kotlinx.coroutines.withContext
 class ExploreViewModel(private val app: Application, private val foodRepository: FoodRepository): BaseViewModel(app) {
 
     val foodCategories = foodRepository.foodCategories
+    val isListEmpty = Transformations.map(foodCategories){ list ->
+        if(list.isNullOrEmpty()){
+            return@map true
+        }
+        false
+    }
 
     init {
         refreshFoodCategories()

@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_yellow"
-        app:layoutDescription="@xml/fragment_enter_scene"
-        app:motionDebug="SHOW_ALL">
+        app:layoutDescription="@xml/fragment_enter_scene">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/enter_title_guideline"

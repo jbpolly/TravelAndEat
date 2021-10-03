@@ -21,10 +21,10 @@ class FoodRepository(
     override suspend fun getFoodCategoryList(): ErrorObject{
         when(val categoriesListResponse = api.getFoodCategories()){
             is NetworkResponse.Success -> {
-                val list = categoriesListResponse.body.list.map { it.toFoodCategory() }
+                val list = categoriesListResponse.body.list?.map { it.toFoodCategory() }
                 withContext(Dispatchers.IO){
                     foodCategoryDao.deleteCategories()
-                    foodCategoryDao.saveFoodCategories(list)
+                    foodCategoryDao.saveFoodCategories(list ?: listOf())
                 }
                 return ErrorObject(isError = false, errorType = null)
             }

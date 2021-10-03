@@ -37,9 +37,12 @@ class AddEditMealViewModel(
     val searchFoodList = MutableLiveData<List<FoodItem>>()
     val cleanSearch = SingleLiveEvent<Boolean>()
     val deletedComplete = SingleLiveEvent<Boolean>()
+    val saveComplete = SingleLiveEvent<Boolean>()
+
 
     var savedPlace: SavedPlace? = null
 
+    val isSearchEmpty = MutableLiveData(true)
     val searchDebounceWatcher = object : TextWatcher {
         private var searchFor = ""
 
@@ -54,7 +57,12 @@ class AddEditMealViewModel(
                 delay(300)  //debounce timeOut
                 if (searchText != searchFor)
                     return@launch
-                if (searchText.isNotBlank()) searchMeals(searchText) else cleanSearch.value = true
+                if (searchText.isNotBlank()) {
+                    searchMeals(searchText)
+                } else {
+                    cleanSearch.value = true
+                    isSearchEmpty.value = true
+                }
 
             }
         }
@@ -76,34 +84,42 @@ class AddEditMealViewModel(
         savedPlace = SavedPlace()
     }
 
+    fun clearSavedPlace(){
+        savedPlace = null
+        mealName.value = ""
+        mealPriceText.value = ""
+        mealLocation.value = ""
+        searchFoodList.value = listOf()
+    }
+
 
     suspend fun searchMeals(text: String) {
+        showLoading.value = true
         when (val result = foodRepository.searchFoodFromText(text)) {
             is NetworkResponse.Success -> {
-                searchFoodList.value = result.body.list.map { it.toFoodItem() }
+                result.body.list?.let {  list ->
+                    searchFoodList.value = list.map { it.toFoodItem() }
+                    isSearchEmpty.value = false
+                } ?: run {
+                    isSearchEmpty.value = true
+                }
+
             }
             is NetworkResponse.ServerError -> {
                 showSnackBar.value = app.getString(R.string.error_service)
+                isSearchEmpty.value = true
             }
             is NetworkResponse.NetworkError -> {
                 showSnackBar.value = app.getString(R.string.error_network)
+                isSearchEmpty.value = true
             }
             else -> {
                 showSnackBar.value = app.getString(R.string.error_unknown)
+                isSearchEmpty.value = true
             }
         }
+        showLoading.value = false
     }
-
-//
-//    fun onClear() {
-//        reminderTitle.value = ""
-//        reminderDescription.value = ""
-//        reminderSelectedLocationStr.value = ""
-//        selectedPOI.value = null
-//        latitude.value = null
-//        longitude.value = null
-//    }
-
 
     fun saveSavedPlace() {
         savedPlace?.let { place ->
@@ -113,14 +129,13 @@ class AddEditMealViewModel(
                 withContext(Dispatchers.IO) {
                     savedPlacesRepository.savePlace(place)
                 }
+                saveComplete.value = true
                 showLoading.value = false
             }
         }
-
     }
 
     fun validateEnteredData(): Boolean {
-
         savedPlace?.let { place ->
             if (place.dishName.isEmpty()) {
                 showSnackBar.value = app.getString(R.string.err_enter_name)
@@ -136,8 +151,6 @@ class AddEditMealViewModel(
             showSnackBar.value = app.getString(R.string.error_null_data)
             return false
         }
-
-
     }
 
     fun setMealLocation(latLong: LatLng, title: String) {
@@ -166,6 +179,7 @@ class AddEditMealViewModel(
                 withContext(Dispatchers.IO) {
                     savedPlacesRepository.deleteSavedPlaceById(place.id)
                 }
+                deletedComplete.value = true
                 showLoading.value = false
             }
         } ?: run {
@@ -173,7 +187,6 @@ class AddEditMealViewModel(
         }
 
     }
-
 
 
 }

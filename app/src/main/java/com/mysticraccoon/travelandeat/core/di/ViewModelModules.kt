@@ -12,6 +12,6 @@ val viewModelModule = module {
     viewModel { DashboardViewModel(get(), get()) }
     viewModel { ExploreViewModel(get(), get()) }
     viewModel { FoodFromCategoryViewModel(get(), get()) }
-    viewModel { AddEditMealViewModel(get(), get()) }
+    viewModel { AddEditMealViewModel(get(), get(), get()) }
 
 }

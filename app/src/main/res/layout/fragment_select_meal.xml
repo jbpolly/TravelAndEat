@@ -4,6 +4,12 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.mysticraccoon.travelandeat.ui.addEditMeal.AddEditMealViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +41,34 @@
             app:layout_constraintEnd_toEndOf="@id/search_field"
             app:layout_constraintTop_toBottomOf="@id/search_field"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_empty_platter"
+            android:drawablePadding="@dimen/margin_small"
+            android:fontFamily="@font/butter_food"
+            android:text="@string/no_items_to_show"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_medium"
+            android:visibility="@{viewModel.isSearchEmpty() ? View.VISIBLE : View.GONE}"
+            app:drawableTint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_field" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:indeterminateTint="@color/dark_green"
+            android:visibility="@{viewModel.showLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

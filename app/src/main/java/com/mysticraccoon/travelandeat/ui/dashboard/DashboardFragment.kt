@@ -1,13 +1,11 @@
 package com.mysticraccoon.travelandeat.ui.dashboard
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mysticraccoon.travelandeat.BR
+import com.mysticraccoon.travelandeat.R
 import com.mysticraccoon.travelandeat.core.utils.safeNavigate
 import com.mysticraccoon.travelandeat.databinding.FragmentDashboardBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +23,9 @@ class DashboardFragment: Fragment() {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         binding.setVariable(BR.viewModel, viewModel)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -32,6 +33,22 @@ class DashboardFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setListeners()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dash_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.clear_saved -> {
+            viewModel.clearSavedPlaces()
+            true
+        }
+        R.id.credits -> {
+            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToCreditsFragment())
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun setupAdapter() {
@@ -65,11 +82,5 @@ class DashboardFragment: Fragment() {
             findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToAddEditMealFragment(isEdit = false, savedPlace = null))
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        (activity as? AppCompatActivity)?.supportActionBar?.show()
-    }
-
 
 }

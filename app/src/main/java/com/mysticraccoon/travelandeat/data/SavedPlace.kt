@@ -14,6 +14,7 @@ import java.util.*
 data class SavedPlace(
 
     @ColumnInfo(name = savedPlacesIdColumnName)
+    @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
     var title: String = "",
     var dishName: String = "",

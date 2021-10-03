@@ -38,9 +38,7 @@ class FoodFromCategoryFragment: Fragment() {
 
     private fun setupAdapter() {
 
-        val adapter = FoodItemFromCategoryAdapter(FoodItemClicked {
-            //todo item selected?
-        })
+        val adapter = FoodItemFromCategoryAdapter(FoodItemClicked {})
 
         binding.categoryFoodList.adapter = adapter
 

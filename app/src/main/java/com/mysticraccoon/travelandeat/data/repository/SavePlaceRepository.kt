@@ -24,4 +24,8 @@ class SavePlaceRepository(private val savedPlacesDao: SavedPlacesDao): ISavedPla
     override suspend fun deleteSavedPlaceById(id: String) {
         savedPlacesDao.deleteSavedPlaceById(id)
     }
+
+    override suspend fun deleteAllSavedPlaces() {
+        savedPlacesDao.deleteAllSavedPlaces()
+    }
 }

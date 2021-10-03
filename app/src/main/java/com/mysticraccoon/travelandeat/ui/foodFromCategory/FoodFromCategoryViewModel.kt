@@ -2,6 +2,7 @@ package com.mysticraccoon.travelandeat.ui.foodFromCategory
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.mysticraccoon.travelandeat.R
@@ -16,15 +17,20 @@ class FoodFromCategoryViewModel(private val app: Application, private val foodRe
 
     val categoryText = MutableLiveData("")
     val foodList = MutableLiveData<List<FoodItem>>()
-
+    val isListEmpty = Transformations.map(foodList){ list ->
+        if(list.isNullOrEmpty()){
+            return@map true
+        }
+        false
+    }
 
     fun setCategory(category: String) {
         categoryText.value = category
         viewModelScope.launch {
-
+            showLoading.value = true
             when(val listResult = foodRepository.getFoodsFromCategory(category)){
                 is NetworkResponse.Success -> {
-                    foodList.value = listResult.body.list.map { it.toFoodItem() }
+                    foodList.value = listResult.body.list?.map { it.toFoodItem() }
                 }
                 is NetworkResponse.ServerError -> {
                     showSnackBar.value = app.getString(R.string.error_service)
@@ -36,8 +42,7 @@ class FoodFromCategoryViewModel(private val app: Application, private val foodRe
                     showSnackBar.value = app.getString(R.string.error_unknown)
                 }
             }
-
-
+            showLoading.value = false
         }
 
     }

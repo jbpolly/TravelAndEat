@@ -24,4 +24,7 @@ interface SavedPlacesDao {
     @Query("DELETE FROM $savedPlacesTableName WHERE $savedPlacesIdColumnName = :id")
     suspend fun deleteSavedPlaceById(id: String)
 
+    @Query("DELETE FROM $savedPlacesTableName")
+    suspend fun deleteAllSavedPlaces()
+
 }

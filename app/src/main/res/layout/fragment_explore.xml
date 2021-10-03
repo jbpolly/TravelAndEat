@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.mysticraccoon.travelandeat.ui.explore.ExploreViewModel" />
@@ -44,13 +46,30 @@
             tools:listitem="@layout/viewholder_food_category_list_item" />
 
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_empty_platter"
+            android:drawablePadding="@dimen/margin_small"
+            android:fontFamily="@font/butter_food"
+            android:text="@string/no_items_to_show"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_medium"
+            android:visibility="@{viewModel.isListEmpty() ? View.VISIBLE : View.GONE}"
+            app:drawableTint="@color/text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/explore_your_list_text" />
+
+
         <ProgressBar
             android:id="@+id/explore_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:indeterminateTint="@color/dark_green"
-            android:visibility="gone"
+            android:visibility="@{viewModel.showLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

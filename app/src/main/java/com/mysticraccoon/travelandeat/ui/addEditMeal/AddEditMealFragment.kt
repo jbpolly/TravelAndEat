@@ -76,6 +76,7 @@ class AddEditMealFragment : Fragment() {
         binding.setVariable(BR.viewModel, viewModel)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        geofencingClient = LocationServices.getGeofencingClient(requireActivity())
         setupMoneyEditText()
         setupScreen(args.isEdit)
 
@@ -98,9 +99,10 @@ class AddEditMealFragment : Fragment() {
             viewModel.loadSavedPlace(args.savedPlace)
         } else {
             binding.deleteButton.visibility = View.GONE
-            viewModel.createSavedPlace()
+            if (viewModel.savedPlace == null) {
+                viewModel.createSavedPlace()
+            }
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,14 +128,22 @@ class AddEditMealFragment : Fragment() {
             viewModel.deleteSavedPlace()
         }
 
-        viewModel.deletedComplete.observe(viewLifecycleOwner){ isComplete ->
-            if(isComplete){
+        viewModel.deletedComplete.observe(viewLifecycleOwner) { isComplete ->
+            if (isComplete) {
+                viewModel.clearSavedPlace()
                 findNavController().popBackStack()
             }
         }
 
         binding.saveButton.setOnClickListener {
             saveMealPlace()
+        }
+
+        viewModel.saveComplete.observe(viewLifecycleOwner) { isComplete ->
+            if (isComplete) {
+                viewModel.clearSavedPlace()
+                findNavController().popBackStack()
+            }
         }
 
     }
@@ -236,7 +246,11 @@ class AddEditMealFragment : Fragment() {
             // Build the geofence using the geofence builder
             val geofence = Geofence.Builder()
                 .setRequestId(savedPlace.id)
-                .setCircularRegion(savedPlace.latitude ?: 0.0, savedPlace.longitude ?: 0.0, GEOFENCE_RADIUS_IN_METERS)
+                .setCircularRegion(
+                    savedPlace.latitude ?: 0.0,
+                    savedPlace.longitude ?: 0.0,
+                    GEOFENCE_RADIUS_IN_METERS
+                )
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .build()
@@ -247,28 +261,37 @@ class AddEditMealFragment : Fragment() {
                 .addGeofence(geofence)
                 .build()
 
-            geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
-                addOnSuccessListener {
-                    Toast.makeText(requireContext(), R.string.geofences_added, Toast.LENGTH_SHORT)
-                        .show()
-                    Log.e(GEOFENCE_TAG, geofence.requestId)
-                    viewModel.saveSavedPlace()
-                }
-                addOnFailureListener {
-                    // Failed to add geofences.
-                    Toast.makeText(requireContext(), R.string.geofences_not_added, Toast.LENGTH_SHORT).show()
-                    if ((it.message != null)) {
-                        Log.w(GEOFENCE_TAG, it.message ?: "")
+            geofencingClient.removeGeofences(listOf(savedPlace.id)).run {
+                addOnCompleteListener {
+                    geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
+                        addOnSuccessListener {
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.geofences_added,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            Log.e(GEOFENCE_TAG, geofence.requestId)
+                            viewModel.saveSavedPlace()
+                        }
+                        addOnFailureListener {
+                            // Failed to add geofences.
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.geofences_not_added,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            if ((it.message != null)) {
+                                Log.w(GEOFENCE_TAG, it.message ?: "")
+                            }
+                            viewModel.saveSavedPlace()
+                        }
                     }
-                    viewModel.saveSavedPlace()
                 }
             }
-
-        } ?: run {
-            Toast.makeText(requireContext(), getString(R.string.error_null_data), Toast.LENGTH_SHORT).show()
         }
-    }
 
+    }
 
 
     private val requestFineLocationPermissionLaunch =

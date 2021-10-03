@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_app">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/app_main_credit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/main_credits"
+            android:textSize="16sp"
+            android:textColor="@color/text_color"
+            android:background="@drawable/bg_list_item"
+            android:padding="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/app_icons_credits"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/TitleText"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/icon_credits"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_main_credit" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/icon_freepik"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_item"
+            android:padding="8dp"
+            tools:text="Example"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColorLink="@color/dark_green"
+            android:textColor="@color/text_color"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/icon_credits"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_icons_credits" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/icon_dDara"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_item"
+            android:padding="8dp"
+            tools:text="Example"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColorLink="@color/dark_green"
+            android:textColor="@color/text_color"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/icon_credits"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_freepik" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/icon_bimbimkha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_list_item"
+            android:padding="8dp"
+            tools:text="Example"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColorLink="@color/dark_green"
+            android:textColor="@color/text_color"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/icon_credits"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_dDara"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
