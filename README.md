@@ -8,6 +8,13 @@
 
 The app is a companion for people who like to travel and try new foods. In the app, it is possible to create entries with places you would like to go and what dishes you would like to taste in that place. It is also possible to add the amount of money it will cost and mark the ones that have already being visited. When you are close to one of the places with a meal saved, the user receives a notification remembering them to enjoy the saved meal.
 
+## Target Milestones
+1) The user can create a reminder with a meal name, the location where it will be consumed and the price
+2) These reminders are stored locally and the user can see them and check completed ones in the dashboard
+3) The user can see the details about saved items and edit them
+4) The user can explore different mels category and search for a specific meal by name when creating an entry 
+5) The user is notified about their meal when entering the area 
+
 ## Features implemented
 
 ### MVVM architecture
