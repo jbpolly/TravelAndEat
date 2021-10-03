@@ -16,4 +16,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_text">#FFE082</color>
+    <color name="hint_color">#585858</color>
 </resources>

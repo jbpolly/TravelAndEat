@@ -3,6 +3,14 @@
     package="com.mysticraccoon.travelandeat">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--         The BACKGROUND_LOCATION permission is required for geofencing functionality to work on Q+ -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -22,6 +30,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+<!--        <receiver-->
+<!--            android:name="com.udacity.project4.core.geofence.GeofenceBroadcastReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true" />-->
+<!--        <service-->
+<!--            android:name="com.mysticraccoon.travelandeat.core.geofence.GeofenceTransitionsJobIntentService"-->
+<!--            android:exported="true"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE" />-->
+
 
     </application>
 

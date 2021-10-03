@@ -13,6 +13,29 @@
     <string name="error_network">No Network</string>
     <string name="error_service">Error retrieving data</string>
     <string name="error_unknown">Error unknown</string>
+    <string name="location_required_error">Location services must be enabled to use the app</string>
     <string name="food_categories">Food Categories</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="meal_name_hint">Click to search for a meal</string>
+    <string name="location">Meal Location</string>
+    <string name="meal_location_hint">Click to search for a location</string>
+    <string name="meal_price">Meal Price</string>
+    <string name="save">Save</string>
+    <string name="dollar_symbol">$</string>
+    <string name="are_you_sure_location_meal">Are you sure you want to set the meal location at %s ?</string>
+
+    <string name="fine_location_title">Enable Fine Location Services</string>
+    <string name="background_location_title">Enable Background Location Services</string>
+    <string name="widget_background_location_description">The app collects location data, even when the app is closed or not in use, to allow it to detect when you\'ve entered the location of an event.</string>
+    <string name="my_location_permission_description">We use your precise location to be able to set your position on the map for a better experience.</string>
+    <string name="text_continue">Continue</string>
+
+    <string name="err_enter_name">Please enter meal name</string>
+    <string name="err_select_location">Please select location</string>
+    <string name="map_instructions">Click on a POI or long click on a position to set the location for your meal</string>
+    <string name="permission_my_location_denied">Permission required for my location feature denied. To change it go to Settings > Apps > Permissions</string>
+    <string name="permission_feature_denied">Permission request canceled. Feature will be unavailable.</string>
+    <string name="delete">Delete</string>
+    <string name="meal_search_hint">Type the meal name to search</string>
 
 </resources>

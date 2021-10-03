@@ -22,6 +22,12 @@
         <action
             android:id="@+id/action_dashboardFragment_to_exploreFragment"
             app:destination="@id/exploreFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_addEditMealFragment"
+            app:destination="@id/addEditMealFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_savedPlaceDetailsFragment"
+            app:destination="@id/savedPlaceDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
@@ -40,5 +46,47 @@
         <argument
             android:name="category"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditMealFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.addEditMeal.AddEditMealFragment"
+        android:label="AddEditMealFragment"
+        tools:layout="@layout/fragment_add_edit_meal">
+        <action
+            android:id="@+id/action_addEditMealFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="savedPlace"
+            app:argType="com.mysticraccoon.travelandeat.data.SavedPlace"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addEditMealFragment_to_selectMealFragment"
+            app:destination="@id/selectMealFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.selectLocation.SelectLocationFragment"
+        android:label="SelectLocationFragment"
+        tools:layout="@layout/fragment_select_location"/>
+    <fragment
+        android:id="@+id/selectMealFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.selectMeal.SelectMealFragment"
+        android:label="SelectMealFragment"
+        tools:layout="@layout/fragment_select_meal"/>
+    <fragment
+        android:id="@+id/savedPlaceDetailsFragment"
+        android:name="com.mysticraccoon.travelandeat.ui.savedPlaceDetails.SavedPlaceDetailsFragment"
+        android:label="SavedPlaceDetailsFragment"
+        tools:layout="@layout/fragment_saved_place_details">
+        <argument
+            android:name="savedPlace"
+            app:argType="com.mysticraccoon.travelandeat.data.SavedPlace"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

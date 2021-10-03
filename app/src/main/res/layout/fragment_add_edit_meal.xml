@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mysticraccoon.travelandeat.ui.addEditMeal.AddEditMealViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_app">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/meal_name_text"
+            style="@style/ScreenTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/meal_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/meal_name_field"
+            style="@style/MealEditText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_small"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/meal_name_hint"
+            android:inputType="text"
+            android:text="@={viewModel.mealName}"
+            app:layout_constraintEnd_toEndOf="@id/meal_name_text"
+            app:layout_constraintStart_toStartOf="@id/meal_name_text"
+            app:layout_constraintTop_toBottomOf="@id/meal_name_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/meal_location_text"
+            style="@style/ScreenTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:text="@string/location"
+            app:layout_constraintEnd_toEndOf="@id/meal_name_text"
+            app:layout_constraintStart_toStartOf="@id/meal_name_text"
+            app:layout_constraintTop_toBottomOf="@id/meal_name_field" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/meal_location_field"
+            style="@style/MealEditText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_small"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="@string/meal_location_hint"
+            android:inputType="text"
+            android:text="@={viewModel.mealLocation}"
+            app:layout_constraintEnd_toEndOf="@id/meal_name_text"
+            app:layout_constraintStart_toStartOf="@id/meal_name_text"
+            app:layout_constraintTop_toBottomOf="@id/meal_location_text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/meal_price_text"
+            style="@style/ScreenTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:text="@string/meal_price"
+            app:layout_constraintEnd_toEndOf="@id/meal_name_text"
+            app:layout_constraintStart_toStartOf="@id/meal_name_text"
+            app:layout_constraintTop_toBottomOf="@id/meal_location_field" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/meal_price_field"
+            style="@style/MealEditText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_small"
+            android:hint="@string/dollar_symbol"
+            android:text="@={viewModel.mealPriceText}"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@id/meal_name_text"
+            app:layout_constraintStart_toStartOf="@id/meal_name_text"
+            app:layout_constraintTop_toBottomOf="@id/meal_price_text" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_button"
+            style="@style/RedSolidButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/delete_button"
+            app:layout_constraintTop_toBottomOf="@id/meal_price_field"
+            app:layout_constraintVertical_bias="1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_button"
+            style="@style/RedStrokeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:text="@string/delete"
+            app:layout_constraintBottom_toBottomOf="@id/save_button"
+            app:layout_constraintTop_toTopOf="@id/save_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/save_button" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

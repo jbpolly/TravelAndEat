@@ -22,4 +22,7 @@ class SavePlaceRepository(private val savedPlacesDao: SavedPlacesDao): ISavedPla
         savedPlacesDao.savePlace(place)
     }
 
+    override suspend fun updatePlace(place: SavedPlace) {
+        savedPlacesDao.updatePlace(place)
+    }
 }

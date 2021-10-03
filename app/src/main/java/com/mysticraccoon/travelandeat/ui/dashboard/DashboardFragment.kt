@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mysticraccoon.travelandeat.BR
+import com.mysticraccoon.travelandeat.core.utils.safeNavigate
 import com.mysticraccoon.travelandeat.databinding.FragmentDashboardBinding
+import com.mysticraccoon.travelandeat.ui.foodFromCategory.FoodItemClicked
+import com.mysticraccoon.travelandeat.ui.foodFromCategory.FoodItemFromCategoryAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardFragment: Fragment() {
@@ -29,22 +32,39 @@ class DashboardFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupAdapter()
         setListeners()
+    }
 
+    private fun setupAdapter() {
+
+        val adapter = SavedPlaceAdapter(SavedPlaceClicked { savedPlace ->
+            //todo item selected?
+
+        }, SavedPlaceCheckChanged { _, savedPlace ->
+            viewModel.updateSavedPlace(savedPlace)
+        })
+
+        binding.dashSavedPlacesList.adapter = adapter
+
+//        viewModel..observe(viewLifecycleOwner){ list->
+//            list?.let {
+//                adapter.submitList(it)
+//            }
+//        }
 
     }
+
 
     private fun setListeners() {
 
         binding.dashExploreOption.setOnClickListener {
-            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToExploreFragment())
+            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToExploreFragment())
 
         }
 
         binding.dashAddPlaceOption.setOnClickListener {
-
-
+            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToAddEditMealFragment(isEdit = false, savedPlace = null))
         }
     }
 

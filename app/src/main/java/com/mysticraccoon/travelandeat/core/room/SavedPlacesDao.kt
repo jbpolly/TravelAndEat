@@ -18,6 +18,9 @@ interface SavedPlacesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun savePlace(place: SavedPlace)
 
+    @Update
+    suspend fun updatePlace(place: SavedPlace)
+
     @Delete
     suspend fun deleteSavedPlace(savedPlace: SavedPlace)
 

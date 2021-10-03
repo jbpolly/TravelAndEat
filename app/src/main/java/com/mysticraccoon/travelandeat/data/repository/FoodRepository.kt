@@ -44,6 +44,10 @@ class FoodRepository(
         return api.getFoodByCategory(category)
     }
 
+    suspend fun searchFoodFromText(text: String): NetworkResponse<FoodItemListResponse, String>{
+        return api.searchFoods(text)
+    }
+
 
 
 
