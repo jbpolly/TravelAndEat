@@ -54,7 +54,7 @@ class DashboardFragment: Fragment() {
     private fun setupAdapter() {
 
         val adapter = SavedPlaceAdapter(SavedPlaceClicked { savedPlace ->
-            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToAddEditMealFragment(isEdit = true, savedPlace = savedPlace))
+            findNavController().safeNavigate(DashboardFragmentDirections.actionDashboardFragmentToSavedPlaceDetailsFragment(savedPlace = savedPlace, isEdit = true))
 
         }, SavedPlaceCheckChanged { _, savedPlace ->
             viewModel.updateSavedPlace(savedPlace)

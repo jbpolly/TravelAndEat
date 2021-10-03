@@ -131,7 +131,7 @@ class AddEditMealFragment : Fragment() {
         viewModel.deletedComplete.observe(viewLifecycleOwner) { isComplete ->
             if (isComplete) {
                 viewModel.clearSavedPlace()
-                findNavController().popBackStack()
+                findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToDashboardFragment())
             }
         }
 
@@ -142,7 +142,7 @@ class AddEditMealFragment : Fragment() {
         viewModel.saveComplete.observe(viewLifecycleOwner) { isComplete ->
             if (isComplete) {
                 viewModel.clearSavedPlace()
-                findNavController().popBackStack()
+                findNavController().safeNavigate(AddEditMealFragmentDirections.actionAddEditMealFragmentToDashboardFragment())
             }
         }
 

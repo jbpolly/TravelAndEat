@@ -98,8 +98,22 @@
             app:layout_constraintStart_toStartOf="@id/details_dish_name"
             app:layout_constraintEnd_toEndOf="@id/details_dish_name"
             app:layout_constraintTop_toBottomOf="@id/details_meal_value_title"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/edit_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/RedStrokeButton"
+            android:text="@string/edit"
+            android:layout_marginStart="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_regular"
+            android:layout_marginBottom="@dimen/margin_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintTop_toBottomOf="@id/details_meal_value_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

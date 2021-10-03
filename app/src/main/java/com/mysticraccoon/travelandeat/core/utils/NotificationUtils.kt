@@ -14,6 +14,7 @@ import com.mysticraccoon.travelandeat.ui.main.MainActivity
 
 private const val NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel"
 const val SAVED_PLACE_KEY = "savedPlace"
+const val IS_EDIT_KEY = "isEdit"
 
 fun triggerNotification(context: Context, savedPlace: SavedPlace) {
 
@@ -34,7 +35,7 @@ fun triggerNotification(context: Context, savedPlace: SavedPlace) {
         .setComponentName(MainActivity::class.java)
         .setGraph(R.navigation.nav_graph)
         .setDestination(R.id.savedPlaceDetailsFragment)
-        .setArguments(bundleOf(SAVED_PLACE_KEY to savedPlace))
+        .setArguments(bundleOf(SAVED_PLACE_KEY to savedPlace, IS_EDIT_KEY to false))
         .createPendingIntent()
 
 

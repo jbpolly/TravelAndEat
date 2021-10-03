@@ -49,6 +49,7 @@
     <string name="main_credits">This app was developed as a Capstone Project for the Udacity Android Kotlin Developer Nanodegree Program by Juliana Rubenich Brondani and it has no commercial purposes.</string>
     <string name="icon_credits">Icons from:</string>
     <string name="no_items_to_show">No items to show</string>
+    <string name="edit">Edit</string>
 
 
 </resources>
