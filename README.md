@@ -70,7 +70,7 @@ This is the main screen of the app. From this screen it is possible to:
 
 - Visualize saved meals
 If there are no saved items, this list should display a message informing that there are no items to display.
-If there are items saved, the user can visualize their saved meals. Clicking on an item takes the user to the "Edit meal" screen. Clicking in the checkbox mark/unmark the item as completed or not.
+If there are items saved, the user can visualize their saved meals. Clicking on an item takes the user to the "Meal Details" screen. Clicking in the checkbox mark/unmark the item as completed or not.
 
 - Go to "Explore" screen"
 
@@ -126,11 +126,13 @@ Then, a dialog appears to let they confirm the location is correct. On confirmat
 
 
 ### Meal details screen
-In this screen the user will be able to see information about their saved meal. This is screen is accessed by cliking on the notification that the user receives when entering a geofence.
+In this screen the user will be able to see information about their saved meal. This is screen is accessed by cliking on the notification that the user receives when entering a geofence or clicking on a saved item from the dashboard.
+If the user arrived in this screen from a saved item on the dashboard then the user can see a button to edit the meal info. If the user arrives from the notification this button is hidden.
 
+![app_notification](https://user-images.githubusercontent.com/7203221/135767325-545c9405-9f66-452d-be52-66aa444fb214.png)
+![app_meal_details_resize](https://user-images.githubusercontent.com/7203221/135767309-b718ab02-4ab6-4f9a-8a0c-5e838e56ce6c.png)
+![app_meal_details_editable_resize](https://user-images.githubusercontent.com/7203221/135767311-652c2a9c-e911-4db8-a818-f9fa8683700c.png)
 
-
-
-
-
+## Before executing
+Before trying to build the app remember that the user shoudl provide a Google Maps API key in the file google_maps_api.xml
 
